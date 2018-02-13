@@ -20,22 +20,25 @@ augroup numbertoggle
     autocmd BufLeave,FocusLost,InsertEnter * set norelativenumber
 augroup END
 
-let g:ctrlp_working_path_mode=''
+let g:ctrlp_working_path_mode=0
 " save using F2
 nmap <F2> :update<CR>
 vmap <F2> <Esc><F2>gv
 imap <F2> <Esc><F2>
 " add semicolon to the end of line
 map ; A;<Esc>
-let g:ctrlp_custom_ignore = {
-            \ 'dir': '\.git$\|vendor\|node_modules\|log\|wp$\|tmp$',
-            \ 'file': '\.so$\|\.dat$|\.DS_Store$'
-            \}
+let g:ctrlp_max_fields=0
+let g:ctrlp_max_depth=40
+"let g:ctrlp_custom_ignore = {
+"            \ 'dir': '\.git$\|vendor\|node_modules\|log\|tmp$',
+"            \ 'file': '\.so$\|\.dat$|\.DS_Store$'
+"            \}
 " use ag for ctrlp
 if executable('ag')
-    let g:ctrlp_user_command = 'ag %s -i --nocolor --nogroup --hidden --ignore .git --ignore vendor --ignore node_modules --ignore log -g ""'
+    let g:ctrlp_user_command = 'ag %s -i --nocolor --nogroup --hidden --ignore .git --ignore .docker --ignore vendor --ignore node_modules -g ""'
+    "let g:ctrlp_user_command = 'ag %s -i --nocolor --nogroup --hidden --ignore .git --ignore log -g ""'
 endif
-set wildignore+=node_modules/**,vendor/**
+"set wildignore+=node_modules/**,vendor/**
 set autoindent smartindent
 " exit insert mode and save
 inoremap jj <ESC>:update<CR>
@@ -80,3 +83,8 @@ if executable('ag')
 endif
 
 set tags=.git/tags,tags;
+
+tnoremap <Esc> <C-W>N
+tnoremap § <C-W>N:q!<CR>
+
+nnoremap § :term<CR>
